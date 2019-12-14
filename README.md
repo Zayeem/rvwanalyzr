@@ -73,7 +73,7 @@ Model output is analyzed to discover a particular set of topic keywords related 
 * Present it!!
 
     ```
-    $ deck
+    $ deck --assets images
     ...
     # alive on http://localhost:1234/deck/presentation/
     ```
