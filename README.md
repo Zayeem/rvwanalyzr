@@ -65,7 +65,7 @@ Model output is analyzed to discover a particular set of topic keywords related 
     ```
 * The presentation.md markdown is under `decks/` folder.
 
-* Run the Present
+* Present it!!
 
     ```
     $ deck
