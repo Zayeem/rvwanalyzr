@@ -59,6 +59,11 @@ Model output is analyzed to discover a particular set of topic keywords related 
 
 ## Run the presentation locally
 
+* Install and use the Node 10 library
+    ```
+    $ nvm install node10
+    $ nvm use 10
+    ```
 * Install the library
     ```
     $ npm i -g @amazingandyyy/markdeck
