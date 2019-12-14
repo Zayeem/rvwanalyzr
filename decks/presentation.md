@@ -36,7 +36,7 @@ The result is useful for figuring out the key features or topics that are correl
   ```
  
 ---
-## Building the modelsß
+## Building the models
 Model builder runs review data through VADER sentiment analyzer, Naive Bayes classifier and LDA topic modeler.  
 It creates csv files containing the results for each in the output folder of the working directory.
 
