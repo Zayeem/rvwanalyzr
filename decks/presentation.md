@@ -4,11 +4,11 @@
     - 1. Jong Park  
     NetID: jonghp2   
     
-    - . Han-Tse Chiou  
+    - 2. Han-Tse Chiou  
     NetID: htchiou2  
     
     - 3. Mohammed Zayeem Allahbaksh  
-    Netid: mza3  
+    NetID: mza3  
 
 
 ---
