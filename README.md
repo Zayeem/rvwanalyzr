@@ -55,3 +55,20 @@ Model output is analyzed to discover a particular set of topic keywords related 
 * Removal of common sentimental keywords from the topic model after the topic is correlated to the sentiment. This filters out the obvious keywords and leaves only a discerning word such as the name of a new product feature.
 
 * Time Series based graph showing the sentiment trend per product version or patch updates. This is useful for the marketing and future strategy of the app.
+
+
+## Run the presentation locally
+
+* Install the library
+    ```
+    $ npm i -g @amazingandyyy/markdeck
+    ```
+* The presentation.md markdown is under `decks/` folder.
+
+* Run the Present
+
+    ```
+    $ deck
+    ...
+    # alive on http://localhost:1234/deck/presentation/
+    ```
