@@ -35,6 +35,7 @@ class sent_model_builder:
         self.reviews = reviews
         self.sentimentAnalyzer = SentimentIntensityAnalyzer()
         self.sentimentAnalyzerLexicons = self.sentimentAnalyzer.lexicon.keys()
+        self.punc_table = str.maketrans('', '', string.punctuation)
 
     ## Include Title and the review text to analyze the review
     def review_text(self, review):
@@ -76,8 +77,7 @@ class sent_model_builder:
             tokens = [w.lower() for w in tokens]
 
             # remove punctuation
-            table = str.maketrans('', '', string.punctuation)
-            stripped = [w.translate(table) for w in tokens]
+            stripped = [w.translate(self.punc_table) for w in tokens]
 
             # filter out non-alphabetic words
             words = [word for word in stripped if word.isalpha()]
@@ -139,12 +139,12 @@ class sent_model_builder:
         print('\nProcessing Topic modeling: \n')
         # Lemmatization rather than stemming to preserve the root form.
         prepped = []
+        lem = WordNetLemmatizer()
         for r in reviews:
-            # lemmmatization
             tokens = word_tokenize(self.review_text(r).lower())
-            tokens = [w for w in tokens if not w in self.sentimentAnalyzerLexicons]
+            tokens = [w.translate(self.punc_table) for w in tokens if not w in self.sentimentAnalyzerLexicons]
 
-            lem = WordNetLemmatizer()
+            # lemmmatization
             lemmatized = [lem.lemmatize(w) for w in tokens]
 
             prepped.append(lemmatized)
