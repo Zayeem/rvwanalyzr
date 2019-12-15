@@ -15,6 +15,7 @@ Rvwanalyzr analyzes appstore product reviews to provide insights regarding the r
  
   ```
   $ cd app-store-scripts
+  $ npm install app-store-scraper
   $ node fetch-reviews.js
   ```
  
@@ -77,3 +78,10 @@ Model output is analyzed to discover a particular set of topic keywords related 
     ...
     # alive on http://localhost:1234/deck/presentation/
     ```
+
+## Built With
+
+* [app-store-scraper](https://github.com/facundoolano/app-store-scraper) - NPM Module used to download the Appstore reviewss
+* [NLTK](http://www.nltk.org/) - Model Builder
+* [gensim](https://radimrehurek.com/gensim/) - LDA Topic Modelling
+* [seaborn](https://seaborn.pydata.org/) - Data Visualization
