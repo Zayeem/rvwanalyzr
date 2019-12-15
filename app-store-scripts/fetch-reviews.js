@@ -1,4 +1,4 @@
-//
+//Imports
 const fs = require('fs');
 var store = require('app-store-scraper');
 
@@ -9,7 +9,7 @@ appIds.forEach(appId => {
 
 function fetch_reviews(appId, page) {
         store.reviews({
-          appId: 'com.midasplayer.apps.candycrushsaga',
+          appId: appId,
           sort: store.sort.RECENT,
           page: page
         })
@@ -19,8 +19,15 @@ function fetch_reviews(appId, page) {
                     if (reviews.length >= 40 && page < 10) {
                         fetch_reviews(appId, page + 1);
                     }
+                }else{
+                    console.log("Error while fetching reviews for App:", appId, err);
                 }
-            });
+            })
+            .catch((err)=> {
+                if (err){
+                    console.log("Error while fetching reviews for App:", appId, err);
+                }
+            })
 }
 
 function save_app_reviews(appId, page, reviews) {
