@@ -1,5 +1,5 @@
 # CS 410 Text Information Systems Final Project
-
+* Presentation at https://youtu.be/i9sRnzaoUU4
 * Teammates:
     - 1. Jong Park  
     NetID: jonghp2   
@@ -9,7 +9,7 @@
     
     - 3. Mohammed Zayeem Allahbaksh  
     NetID: mza3
-    
+
 # rvwanalyzr
 Rvwanalyzr analyzes appstore product reviews to provide insights regarding the review sentiments and the topic keywords related. The result is useful for figuring out the key features or topics that are correlated to the users sentiments. 
 
