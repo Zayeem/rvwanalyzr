@@ -23,10 +23,10 @@ Rvwanalyzr analyzes appstore product reviews to provide insights regarding the r
 <img src ="doc/reviewanalyzer_components.png" />
 
 ## Downloading data to analyze
-* app-store-scripts/fetch-reviews.js downloads reviews under each data/apps/<app id> folder. There will be 10 files which is the max number of pages that app store API allows.
+* app-store-scripts/fetch-reviews.js downloads reviews under each data/apps/[app id] folder. Under each [app id] folder, there will be 10 files which is the max number of pages that app store API allows after executing the download script as below.
 
-* To collect app store reviews
-  Add a folder named matching the app id under app-store-scripts/data/apps folder and run
+  * To collect app store reviews
+    Add a folder named matching the app id under app-store-scripts/data/apps folder and run
  
   ```
   $ cd app-store-scripts
@@ -71,14 +71,14 @@ Model output is analyzed to discover a particular set of topic keywords related 
 
 ## Future items
 
-~~* Removal of common sentimental keywords from the topic model after the topic is correlated to the sentiment. This filters out the obvious keywords and leaves only a discerning word such as the name of a new product feature.~~ Completed via [PR](https://github.com/jpark800/rvwanalyzr/pull/2?w=1)
-
 * Time Series based graph showing the sentiment trend per product version or patch updates. This is useful for the marketing and future strategy of the app.
 
 * Support for Non-English reviews
 
 
 ## Run the presentation locally
+
+The presentation slides are produced with a presentation builder tool amazingandyyy/markdeck. To run it locally,
 
 * Install and use the Node 10 library
     ```
