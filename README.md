@@ -7,6 +7,9 @@ Rvwanalyzr analyzes appstore product reviews to provide insights regarding the r
     * [Naive Bayes classifier](https://www.nltk.org/_modules/nltk/classify/naivebayes.html) - this classic model's output is **not used** directly but kept for the future usage.
     * [LDA](https://radimrehurek.com/gensim/models/ldamodel.html) topic modeler - The resulting top ranked topics are correlated with the sentiment.
 
+## Components
+<img src ="doc/reviewanalyzer components.png" />
+
 ## Downloading data to analyze
 * app-store-scripts/fetch-reviews.js downloads reviews under each data/apps/<app id> folder. There will be 10 files which is the max number of pages that app store API allows.
 
@@ -39,12 +42,12 @@ Model builder runs review data through VADER sentiment analyzer, Naive Bayes cla
 Model output is analyzed to discover a particular set of topic keywords related to a sentiment. Sentiment score of all reviews with the same dominant topic is collected to produce the average sentiment. The resulting average sentiment score and the dominant topics are plotted to show the degree of topic's sentiment. The implementation uses Jupyter Notebook. VADER's compound sentiment score and top 10 dominant topics are used to plot the graph such as the following.
 
 <p align="center">
-  <img src ="https://github.com/jpark800/rvwanalyzr/blob/master/doc/topic_sentiment.png" />
+  <img src ="doc/topic_sentiment.png" />
 </p>
 
 
 <p align="center">
-  <img src ="https://github.com/jpark800/rvwanalyzr/blob/master/doc/topic_keywords.png" />
+  <img src ="doc/topic_keywords.png" />
 </p>
 
 * To load and run the script in Jupyter Notebook
