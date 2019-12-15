@@ -24,7 +24,7 @@ Rvwanalyzr analyzes appstore product reviews to provide insights regarding the r
 Model builder runs review data through VADER sentiment analyzer, Naive Bayes classifier and LDA topic modeler. It creates csv files containing the results for each in the output folder of the working directory.
 * Add Module Dependencies via pip
     ```
-    pip install --upgrade vaderSentiment gensim seaborn nltk
+    pip install --upgrade gensim seaborn nltk
     ```
 * To build model with the data downloaded by fetch-reviews.js at the default location, app-store-scripts/data/apps/
   ```
