@@ -20,7 +20,7 @@ Rvwanalyzr analyzes appstore product reviews to provide insights regarding the r
     * [LDA](https://radimrehurek.com/gensim/models/ldamodel.html) topic modeler - The resulting top ranked topics are correlated with the sentiment.
 
 ## Components
-<img src ="doc/reviewanalyzer components.png" />
+<img src ="doc/reviewanalyzer_components.png" />
 
 ## Downloading data to analyze
 * app-store-scripts/fetch-reviews.js downloads reviews under each data/apps/<app id> folder. There will be 10 files which is the max number of pages that app store API allows.
@@ -74,6 +74,8 @@ Model output is analyzed to discover a particular set of topic keywords related 
 * Removal of common sentimental keywords from the topic model after the topic is correlated to the sentiment. This filters out the obvious keywords and leaves only a discerning word such as the name of a new product feature.
 
 * Time Series based graph showing the sentiment trend per product version or patch updates. This is useful for the marketing and future strategy of the app.
+
+* Support for Non-English reviews
 
 
 ## Run the presentation locally
