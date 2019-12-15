@@ -1,3 +1,15 @@
+# CS 410 Text Information Systems Final Project
+* Presentation at https://youtu.be/i9sRnzaoUU4
+* Teammates:
+    - 1. Jong Park  
+    NetID: jonghp2   
+    
+    - 2. Han-Tse Chiou  
+    NetID: htchiou2  
+    
+    - 3. Mohammed Zayeem Allahbaksh  
+    NetID: mza3
+
 # rvwanalyzr
 Rvwanalyzr analyzes appstore product reviews to provide insights regarding the review sentiments and the topic keywords related. The result is useful for figuring out the key features or topics that are correlated to the users sentiments. 
 
@@ -6,6 +18,9 @@ Rvwanalyzr analyzes appstore product reviews to provide insights regarding the r
     * [VADER](https://www.nltk.org/_modules/nltk/sentiment/vader.html) - Valence based sentiment analysis from nltk. VADER's sentiment score in fine grained scale and the ability to evaluate social media expression are powerful features for the tool.
     * [Naive Bayes classifier](https://www.nltk.org/_modules/nltk/classify/naivebayes.html) - this classic model's output is **not used** directly but kept for the future usage.
     * [LDA](https://radimrehurek.com/gensim/models/ldamodel.html) topic modeler - The resulting top ranked topics are correlated with the sentiment.
+
+## Components
+<img src ="doc/reviewanalyzer_components.png" />
 
 ## Downloading data to analyze
 * app-store-scripts/fetch-reviews.js downloads reviews under each data/apps/<app id> folder. There will be 10 files which is the max number of pages that app store API allows.
@@ -24,7 +39,7 @@ Rvwanalyzr analyzes appstore product reviews to provide insights regarding the r
 Model builder runs review data through VADER sentiment analyzer, Naive Bayes classifier and LDA topic modeler. It creates csv files containing the results for each in the output folder of the working directory.
 * Add Module Dependencies via pip
     ```
-    pip install --upgrade vaderSentiment gensim seaborn nltk
+    pip install --upgrade gensim seaborn nltk
     ```
 * To build model with the data downloaded by fetch-reviews.js at the default location, app-store-scripts/data/apps/
   ```
@@ -39,12 +54,12 @@ Model builder runs review data through VADER sentiment analyzer, Naive Bayes cla
 Model output is analyzed to discover a particular set of topic keywords related to a sentiment. Sentiment score of all reviews with the same dominant topic is collected to produce the average sentiment. The resulting average sentiment score and the dominant topics are plotted to show the degree of topic's sentiment. The implementation uses Jupyter Notebook. VADER's compound sentiment score and top 10 dominant topics are used to plot the graph such as the following.
 
 <p align="center">
-  <img src ="https://github.com/jpark800/rvwanalyzr/blob/master/doc/topic_sentiment.png" />
+  <img src ="doc/topic_sentiment.png" />
 </p>
 
 
 <p align="center">
-  <img src ="https://github.com/jpark800/rvwanalyzr/blob/master/doc/topic_keywords.png" />
+  <img src ="doc/topic_keywords.png" />
 </p>
 
 * To load and run the script in Jupyter Notebook
@@ -56,9 +71,11 @@ Model output is analyzed to discover a particular set of topic keywords related 
 
 ## Future items
 
-* Removal of common sentimental keywords from the topic model after the topic is correlated to the sentiment. This filters out the obvious keywords and leaves only a discerning word such as the name of a new product feature.
+~~* Removal of common sentimental keywords from the topic model after the topic is correlated to the sentiment. This filters out the obvious keywords and leaves only a discerning word such as the name of a new product feature.~~ Completed via [PR](https://github.com/jpark800/rvwanalyzr/pull/2?w=1)
 
 * Time Series based graph showing the sentiment trend per product version or patch updates. This is useful for the marketing and future strategy of the app.
+
+* Support for Non-English reviews
 
 
 ## Run the presentation locally
@@ -74,12 +91,18 @@ Model output is analyzed to discover a particular set of topic keywords related 
     ```
 * The presentation.md markdown is under `decks/` folder.
 
-* Present it!!
+* Present it directly 
 
     ```
     $ deck --assets images
     ...
     # alive on http://localhost:1234/deck/presentation/
+    ```
+* Or Generate Static HTML and present from docs/deck/presentation/index.html
+    ```
+    $ deck export --assets images
+    ...
+    # created docs/deck/presentation/index.html
     ```
 
 ## Built With

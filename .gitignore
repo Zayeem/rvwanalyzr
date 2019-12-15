@@ -2,3 +2,6 @@
 app-store-scripts/node_modules
 app-store-scripts/package-lock.json
 .DS_store
+docs/deck/*
+.idea/*
+review_env/**
