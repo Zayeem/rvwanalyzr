@@ -71,7 +71,7 @@ Model output is analyzed to discover a particular set of topic keywords related 
 
 ## Future items
 
-* Removal of common sentimental keywords from the topic model after the topic is correlated to the sentiment. This filters out the obvious keywords and leaves only a discerning word such as the name of a new product feature.
+~~* Removal of common sentimental keywords from the topic model after the topic is correlated to the sentiment. This filters out the obvious keywords and leaves only a discerning word such as the name of a new product feature.~~ Completed via [PR](https://github.com/jpark800/rvwanalyzr/pull/2?w=1)
 
 * Time Series based graph showing the sentiment trend per product version or patch updates. This is useful for the marketing and future strategy of the app.
 
