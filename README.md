@@ -98,9 +98,11 @@ Model output is analyzed to discover a particular set of topic keywords related 
     ...
     # alive on http://localhost:1234/deck/presentation/
     ```
-* Or Generate Static HTML
+* Or Generate Static HTML and present from docs/deck/presentation/index.html
     ```
     $ deck export --assets images
+    ...
+    # created docs/deck/presentation/index.html
     ```
 
 ## Built With
