@@ -32,6 +32,7 @@ The result is useful for figuring out the key features or topics that are correl
  
   ```
   $ cd app-store-scripts
+  $ npm install app-store-scraper
   $ node fetch-reviews.js
   ```
  
