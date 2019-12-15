@@ -1,6 +1,6 @@
 # CS 410 Text Information Systems Final Project
 
-* Teammate:
+* Teammates:
     - 1. Jong Park  
     NetID: jonghp2   
     
