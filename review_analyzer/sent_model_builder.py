@@ -9,7 +9,7 @@ from gensim.models.coherencemodel import CoherenceModel
 import pandas as pd
 import string
 import random
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from nltk.sentiment import SentimentIntensityAnalyzer
 import json
 import os
 import sys
@@ -212,6 +212,7 @@ if __name__=='__main__':
     # Download the prerequisite corpora
     nltk.download('wordnet')
     nltk.download('stopwords')
+    nltk.download('vader_lexicon')
     # Download tokenizer
     nltk.download('punkt')
 
