@@ -3,9 +3,9 @@ Rvwanalyzr analyzes appstore product reviews to provide insights regarding the r
 
 * The tool builds out 3 differnt models with the review data.
 
-    * VADER - Valence based sentiment analysis from nltk. VADER's sentiment score in fine grained scale and the ability to evaluate social media expression are powerful features for the tool.
-    * Naive Bayes classifier - this classic model's output is not used directly but kept for the future usage.
-    * LDA topic modeler - The resulting top ranked topics are correlated with the sentiment.
+    * [VADER](https://www.nltk.org/_modules/nltk/sentiment/vader.html) - Valence based sentiment analysis from nltk. VADER's sentiment score in fine grained scale and the ability to evaluate social media expression are powerful features for the tool.
+    * [Naive Bayes classifier](https://www.nltk.org/_modules/nltk/classify/naivebayes.html) - this classic model's output is **not used** directly but kept for the future usage.
+    * [LDA](https://radimrehurek.com/gensim/models/ldamodel.html) topic modeler - The resulting top ranked topics are correlated with the sentiment.
 
 ## Downloading data to analyze
 * app-store-scripts/fetch-reviews.js downloads reviews under each data/apps/<app id> folder. There will be 10 files which is the max number of pages that app store API allows.
@@ -15,13 +15,17 @@ Rvwanalyzr analyzes appstore product reviews to provide insights regarding the r
  
   ```
   $ cd app-store-scripts
+  $ npm install app-store-scraper
   $ node fetch-reviews.js
   ```
  
 
 ## Building the models
 Model builder runs review data through VADER sentiment analyzer, Naive Bayes classifier and LDA topic modeler. It creates csv files containing the results for each in the output folder of the working directory.
-
+* Add Module Dependencies via pip
+    ```
+    pip install --upgrade vaderSentiment gensim seaborn nltk
+    ```
 * To build model with the data downloaded by fetch-reviews.js at the default location, app-store-scripts/data/apps/
   ```
   $ python review_analyzer/sent_model_builder.py
@@ -77,3 +81,10 @@ Model output is analyzed to discover a particular set of topic keywords related 
     ...
     # alive on http://localhost:1234/deck/presentation/
     ```
+
+## Built With
+
+* [app-store-scraper](https://github.com/facundoolano/app-store-scraper) - NPM Module used to download the Appstore reviewss
+* [NLTK](http://www.nltk.org/) - Model Builder
+* [gensim](https://radimrehurek.com/gensim/) - LDA Topic Modelling
+* [seaborn](https://seaborn.pydata.org/) - Data Visualization

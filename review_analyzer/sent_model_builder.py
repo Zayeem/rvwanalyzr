@@ -5,6 +5,7 @@ from nltk.probability import FreqDist
 from nltk.tokenize import word_tokenize
 from nltk.stem.wordnet import WordNetLemmatizer
 from gensim import models, corpora
+from gensim.models.coherencemodel import CoherenceModel
 import pandas as pd
 import string
 import random
@@ -12,6 +13,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import json
 import os
 import sys
+import nltk
 
 #documents, bow, reviews are in the same order.
 #   reviews [{id:x, url:x, score:x, text:x, ...}]
@@ -20,7 +22,6 @@ import sys
 #   vader_sent_df[(id, score, pos_score, neu_score, neg_score, comp_score)]
 #   nb_df [nb_label, id] lable for the review produced by naive_bayes classifier
 #   topic_df = ['Document_No', 'Dominant_Topic', 'Topic_Perc_Contrib', 'Topic_Keywords', 'id'] of LDA model
-
 class sent_model_builder:
 
     reviews = []
@@ -33,31 +34,39 @@ class sent_model_builder:
     def __init__(self, reviews):
         self.reviews = reviews
 
+    ## Include Title and the review text to analyze the review
+    def review_text(self, review):
+        if (review):
+            return review['title'] + " " + review['text']
+        return ""
+
     ##############VADER sentiment
     def build_vader(self):
         print('\nProcessing VADER sentiment: \n')
         analyser = SentimentIntensityAnalyzer()
         vader_sent = []
         for r in reviews:
-            snt = analyser.polarity_scores(r['text'])
-            vader_sent.append((r['id'], r['score'], snt.get('neg'), snt.get('neu'), snt.get('pos'), snt.get('compound')))
+            text = self.review_text(r)
+            snt = analyser.polarity_scores(text)
+            vader_sent.append((r['appid'],r['id'], r['score'], snt.get('neg'), snt.get('neu'), snt.get('pos'), snt.get('compound')))
 
             #print a few samples randomly for debugging
             if random.randint(1, 200) == 1:
                 print('score: {}'.format(r['score']))
+                print('AppId: ' + r['appid'])
                 print('id: ' + r['id'])
                 print('sentiment: ' + str(snt))
                 print(' ')
 
-        self.vader_sent_df = pd.DataFrame(vader_sent, columns=['review_id', 'review_score', 'vader_neg', 'vader_neu', 'vader_pos', 'vader_compound'])
+        self.vader_sent_df = pd.DataFrame(vader_sent, columns=['app_id','review_id', 'review_score', 'vader_neg', 'vader_neu', 'vader_pos', 'vader_compound'])
     
     ################# Naive Bayes
     def build_naive_bayes_model(self):
         print('Processing Naive Bayes classification: \n')
-        for r in reviews: 
+        for r in reviews:
 
             #tokenize review text
-            tokens = word_tokenize(r['text'])
+            tokens = word_tokenize(self.review_text(r))
 
             #lower case tokens
             tokens = [w.lower() for w in tokens]
@@ -118,6 +127,7 @@ class sent_model_builder:
         labels = classifier.classify_many(featuresets_to_classify)
         self.nb_df = pd.DataFrame(labels, columns = ['nb_label'])
         self.nb_df['review_id'] = [rvw['id'] for rvw, sentiment in self.documents]
+        self.nb_df['appid'] = [rvw['appid'] for rvw, sentiment in self.documents]
 
     ###########################topic modeling
     def build_topic_model(self):
@@ -126,7 +136,7 @@ class sent_model_builder:
         prepped = []
         for r in reviews:
             #lemmmatization
-            tokens = word_tokenize(r['text'])
+            tokens = word_tokenize(self.review_text(r))
 
             lem = WordNetLemmatizer()
             lemmatized = [lem.lemmatize(w) for w in tokens]
@@ -136,7 +146,7 @@ class sent_model_builder:
         #create gensim dictionary of word<->id mapping
         w2id = corpora.Dictionary(prepped)
 
-        #create term frequence list (word, count)
+        #create term frequence list (word, count) - Bag of words representation
         bow = [w2id.doc2bow(text) for text in prepped]
 
         #LDA for the review
@@ -176,9 +186,16 @@ class sent_model_builder:
 
 
         df_topic_sents_keywords = format_topics_sentences(ldamodel=ldamodel, corpus=bow)
+        print("\n Perplexity:" , ldamodel.log_perplexity(bow))
+        # Compute Coherence Score
+        coherence_model_lda = CoherenceModel(model=ldamodel, dictionary=w2id, texts=prepped,
+                                              coherence='c_v')
+        coherence_lda = coherence_model_lda.get_coherence()
+        print('\nCoherence Score: ', coherence_lda)
         self.topic_df = df_topic_sents_keywords.reset_index()
         self.topic_df.columns = ['Document_No', 'Dominant_Topic', 'Topic_Perc_Contrib', 'Topic_Keywords']
         self.topic_df['review_id'] = [rvw['id'] for rvw, sentiment in self.documents]
+        self.topic_df['appid'] = [rvw['appid'] for rvw, sentiment in self.documents]
 
 
 #main runs review data through VADER sentiment analyzer, naive bayes classifier, LDA topic modeler and
@@ -191,6 +208,12 @@ class sent_model_builder:
 #-Possibly a graphical representation of the combined csv. i.e. topic keywords displayed along with 
 #   the sentiment(vader, nb) of each review or a new review.
 if __name__=='__main__':
+
+    # Download the prerequisite corpora
+    nltk.download('wordnet')
+    nltk.download('stopwords')
+    # Download tokenizer
+    nltk.download('punkt')
 
     if len(sys.argv) != 2:
         print("Usage: python sent_model_builder.py path_to_data_dir")
@@ -209,7 +232,10 @@ if __name__=='__main__':
                 if not filename.startswith('.'):
                     filepath = os.path.join(dataDir, dir, filename) 
                     with open(filepath) as json_file:
-                        reviews.extend(json.load(json_file))
+                        json_vals = json.load(json_file)
+                        for j in json_vals:
+                            j["appid"] = dir
+                        reviews.extend(json_vals)
 
     #build models
     model_builder = sent_model_builder(reviews)
