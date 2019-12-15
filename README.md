@@ -91,12 +91,16 @@ Model output is analyzed to discover a particular set of topic keywords related 
     ```
 * The presentation.md markdown is under `decks/` folder.
 
-* Present it!!
+* Present it directly 
 
     ```
     $ deck --assets images
     ...
     # alive on http://localhost:1234/deck/presentation/
+    ```
+* Or Generate Static HTML
+    ```
+    $ deck export --assets images
     ```
 
 ## Built With
