@@ -1,5 +1,5 @@
 # CS 410 Text Information Systems Final Project
-* Presentation at https://youtu.be/i9sRnzaoUU4
+* Presentation at https://youtu.be/f6ts17IcFsk
 * Teammates:
     - 1. Jong Park  
     NetID: jonghp2   
